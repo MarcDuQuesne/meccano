@@ -1,4 +1,5 @@
 from enum import Enum
+import FreeCAD as App
 
 
 class ObjectType(Enum):
@@ -7,16 +8,28 @@ class ObjectType(Enum):
 
 class Piece:
     
-    geometries: {}
-    constraints: {}
+    def __init__(self):
+        self.geometries = {}
+        self.constraints = {}
 
-    def add_to_sketch(self, sketch):
 
-        for geometry in self.geometries.keys():
-            sketch.addGeometry(geometry)
+    def extrude(self, app, sketch, length_forward, length_reversed=0):
 
-        for constraint in self.constraints.keys():
-            sketch.addGeometry(geometry)
-
-        return sketch
-
+        app.addObject('Part::Extrusion','Extrude')
+        extruder = app.getObject('Extrude')
+        extruder.Base = sketch
+        extruder.DirMode = "Normal"
+        extruder.DirLink = None
+        extruder.LengthFwd = length_forward
+        extruder.LengthRev = length_reversed
+        extruder.Solid = True
+        extruder.Reversed = False
+        extruder.Symmetric = False
+        extruder.TaperAngle = 0.000000000000000
+        extruder.TaperAngleRev = 0.000000000000000
+        # App.getDocument('test').getObject('Extrude').ViewObject.ShapeAppearance=getattr(App.getDocument('test').getObject('Sketch').getLinkedObject(True).ViewObject,'ShapeAppearance',App.getDocument('test').getObject('Extrude').ViewObject.ShapeAppearance)
+        # App.getDocument('test').getObject('Extrude').ViewObject.LineColor=getattr(App.getDocument('test').getObject('Sketch').getLinkedObject(True).ViewObject,'LineColor',App.getDocument('test').getObject('Extrude').ViewObject.LineColor)
+        # App.getDocument('test').getObject('Extrude').ViewObject.PointColor=getattr(App.getDocument('test').getObject('Sketch').getLinkedObject(True).ViewObject,'PointColor',App.getDocument('test').getObject('Extrude').ViewObject.PointColor)
+        sketch.Visibility = False
+        extruder.Visibility = True
+        App.ActiveDocument.recompute()
