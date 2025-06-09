@@ -1,2 +1,2 @@
-from meccano.pieces.flat_strip import FlatStrip
+from meccano.pieces.planar import FlatStrip
 

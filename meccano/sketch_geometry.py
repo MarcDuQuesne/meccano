@@ -94,6 +94,11 @@ class Constraints:
         cls.global_id_counter += 1
 
     @classmethod
+    def vertical(cls, line):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Vertical', line.id)
+        cls.global_id_counter += 1
+
+    @classmethod
     def radius(cls, circle, radius):
         cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Radius', circle.id, radius)
         cls.global_id_counter += 1
@@ -107,3 +112,23 @@ class Constraints:
     def distance_horizontal(cls, first, second, distance):
         cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('DistanceX', first[0].id, first[1].value, second[0].id, second[1].value, distance)
         cls.global_id_counter += 1
+
+    @classmethod
+    def distance_vertical(cls, first, second, distance):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('DistanceY', first[0].id, first[1].value, second[0].id, second[1].value, distance)
+        cls.global_id_counter += 1        
+
+    @classmethod
+    def distance(cls, first, second, distance):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Distance', first[0].id, first[1].value, second[0].id, second[1].value, distance)
+        cls.global_id_counter += 1             
+
+    @classmethod
+    def equals(cls, first, second):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Equal', first.id, second.id)
+        cls.global_id_counter += 1             
+
+    @classmethod
+    def angle(cls, arc, angle):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Angle', arc.id, angle)
+        cls.global_id_counter += 1             
