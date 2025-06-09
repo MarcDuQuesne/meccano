@@ -15,8 +15,7 @@ class Piece:
 
     def extrude(self, app, sketch, length_forward, length_reversed=0):
 
-        app.addObject('Part::Extrusion','Extrude')
-        extruder = app.getObject('Extrude')
+        extruder = app.addObject('Part::Extrusion',f'Extrude_{sketch.Name}')
         extruder.Base = sketch
         extruder.DirMode = "Normal"
         extruder.DirLink = None
@@ -25,11 +24,14 @@ class Piece:
         extruder.Solid = True
         extruder.Reversed = False
         extruder.Symmetric = False
-        extruder.TaperAngle = 0.000000000000000
-        extruder.TaperAngleRev = 0.000000000000000
+        extruder.TaperAngle = 0.0
+        extruder.TaperAngleRev = 0.0
         # App.getDocument('test').getObject('Extrude').ViewObject.ShapeAppearance=getattr(App.getDocument('test').getObject('Sketch').getLinkedObject(True).ViewObject,'ShapeAppearance',App.getDocument('test').getObject('Extrude').ViewObject.ShapeAppearance)
         # App.getDocument('test').getObject('Extrude').ViewObject.LineColor=getattr(App.getDocument('test').getObject('Sketch').getLinkedObject(True).ViewObject,'LineColor',App.getDocument('test').getObject('Extrude').ViewObject.LineColor)
         # App.getDocument('test').getObject('Extrude').ViewObject.PointColor=getattr(App.getDocument('test').getObject('Sketch').getLinkedObject(True).ViewObject,'PointColor',App.getDocument('test').getObject('Extrude').ViewObject.PointColor)
         sketch.Visibility = False
         extruder.Visibility = True
         App.ActiveDocument.recompute()
+        app.recompute()
+
+        return extruder

@@ -6,8 +6,15 @@ import Sketcher
 from typing import Tuple 
 from FreeCAD import Vector 
 
+class Measurements:
+
+    tolerance = 0.1
+    hole_radius = 2
+    linear_height = 0.75 
+
 
 class Geometry(ABC):
+
     global_id_counter = 0
     global_registry = {}
 
@@ -20,6 +27,8 @@ class Geometry(ABC):
     def add_all_to_sketch(cls, sketch):
         for geometry in cls.global_registry.values():
             geometry.add_to_sketch(sketch)
+        cls.global_registry = {}
+        cls.global_id_counter = 0
 
     @abstractmethod
     def add_to_sketch(self, sketch):
@@ -77,6 +86,9 @@ class Constraints:
     def add_all_constraints(cls, sketch):
         for constraint in cls.global_registry.values():
             sketch.addConstraint(constraint)
+
+        cls.global_registry = {}
+        cls.global_id_counter = 0
 
     @classmethod
     def coincident(cls, first: Tuple, second: Tuple):

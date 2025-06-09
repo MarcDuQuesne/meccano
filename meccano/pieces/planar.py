@@ -106,8 +106,15 @@ class Plate(Piece):
 
         return sketch
 
+    def build(self, app):
+        self.sketch = app.addObject("Sketcher::SketchObject", "FlatStrip")
+        self.draw_sketch(self.sketch)
+        self.extrude(app, self.sketch, length_forward=1)
+        app.recompute()
+
 class FlatStrip(Plate):
 
     def __init__(self, n_holes):
         assert n_holes >=2, "n_holes must be >=2"
         super().__init__(n_rows=1, n_columns=n_holes)
+        self.sketch = None
