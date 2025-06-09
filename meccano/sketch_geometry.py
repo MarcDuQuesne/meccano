@@ -10,8 +10,12 @@ class Measurements:
 
     tolerance = 0.1
     hole_radius = 2
-    linear_height = 0.75 
+    medium_extrude_height = 0.75 
+    thick_extrude_height = 1.5
+    thin_extrude_height = 0.5
 
+    nut_side = 3.5
+    nut_radius=1.5
 
 class Geometry(ABC):
 
@@ -57,7 +61,6 @@ class Line(Geometry):
     def add_to_sketch(self, sketch):
         sketch.addGeometry(self.geometry)
 
-
 class Circle(Geometry):
 
     def __init__(self, center, radius, normal=Vector(0.0, 0.0, 1.0)):
@@ -66,6 +69,37 @@ class Circle(Geometry):
 
     def add_to_sketch(self, sketch):
         sketch.addGeometry(self.geometry)
+
+class Square(Geometry):
+
+    def __init__(self, topright_vertix, side):
+        super().__init__()
+        self.line1 = Line(topright_vertix, topright_vertix + Vector(0,side,0))
+        self.line2 = Line(topright_vertix, topright_vertix + Vector(side,0,0))
+        self.line3 = Line(topright_vertix + Vector(side,side,0), topright_vertix + Vector(0,side,0))
+        self.line4 = Line(topright_vertix + Vector(side,side,0), topright_vertix + Vector(side,0,0))
+
+
+    def constraints(self):
+        pass
+        # Constraints.coincident((self.line1, LineSubParts.START_POINT), (self.line2, LineSubParts.START_POINT) )
+        # Constraints.coincident((self.line1, LineSubParts.END_POINT), (self.line3, LineSubParts.END_POINT) )
+        # Constraints.coincident((self.line3, LineSubParts.START_POINT), (self.line2, LineSubParts.END_POINT) )
+        # Constraints.coincident((self.line2, LineSubParts._POINT), (self.line2, LineSubParts.START_POINT) )
+
+        # Constraints.horizontal(self.line1)
+        # Constraints.horizontal(self.line)
+        # Constraints.vertical(self.line2)
+        # Constraints.vertical(self.line4)
+
+        # Constraints.distance((self.line1, LineSubParts.START_POINT), (self.line1, LineSubParts.END_POINT), side)
+        # Constraints.equals(self.line1, self.line2)
+        # Constraints.equals(self.line1, self.line3)
+        # Constraints.equals(self.line1, self.line4)
+        
+    def add_to_sketch(self, sketch):
+        pass
+
 
 class Arc(Geometry):
 

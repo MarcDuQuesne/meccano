@@ -1,7 +1,7 @@
 from meccano import Piece
 import Part
 
-from meccano.sketch_geometry import Line, Circle, LineSubParts, Geometry, Constraints, Arc, X,Y
+from meccano.sketch_geometry import Line, Circle, LineSubParts, Geometry, Constraints, Arc, X,Y, Measurements as M
 from FreeCAD import Vector
 from typing import Tuple
 from itertools import tee
@@ -22,13 +22,15 @@ def pairwise(iterable):
 
 class Plate(Piece):
 
-    def __init__(self, n_columns:int, n_rows:int):
+    def __init__(self, n_columns:int, n_rows:int, extrude_height=M.medium_extrude_height):
         super(Plate).__init__()
 
         assert n_columns >=0, "n_holes must be >=0"
         assert n_rows >=0, "n_holes must be >=0"
         self.n_columns = n_columns
         self.n_rows = n_rows
+
+        self.extrude_height = extrude_height
 
     def draw_sketch(self, sketch):
 
@@ -109,12 +111,14 @@ class Plate(Piece):
     def build(self, app):
         self.sketch = app.addObject("Sketcher::SketchObject", "FlatStrip")
         self.draw_sketch(self.sketch)
-        self.extrude(app, self.sketch, length_forward=1)
+        extruded = self.extrude(app, self.sketch, length_forward=self.extrude_height)
         app.recompute()
+
+        return extruded
 
 class FlatStrip(Plate):
 
-    def __init__(self, n_holes):
+    def __init__(self, n_holes, extrude_height=M.medium_extrude_height):
         assert n_holes >=2, "n_holes must be >=2"
-        super().__init__(n_rows=1, n_columns=n_holes)
+        super().__init__(n_rows=1, n_columns=n_holes, extrude_height=extrude_height)
         self.sketch = None
