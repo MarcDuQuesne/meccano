@@ -88,11 +88,11 @@ class Plate(Piece):
 
         if self.n_columns > 1:
             Constraints.distance((line1,LineSubParts.START_POINT), (line1, LineSubParts.END_POINT),6*hole_radius*(self.n_columns-1) )
-            Constraints.horizontal(line1)
+            Constraints.line_horizontal(line1)
 
         if self.n_rows > 1:
             Constraints.distance((line3,LineSubParts.START_POINT), (line3, LineSubParts.END_POINT),6*hole_radius*(self.n_rows-1) )
-            Constraints.vertical(line3)
+            Constraints.line_vertical(line3)
 
         for hole in holes:
             Constraints.radius(hole, hole_radius+tolerance*2)

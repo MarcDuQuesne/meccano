@@ -66,6 +66,7 @@ class Circle(Geometry):
     def __init__(self, center, radius, normal=Vector(0.0, 0.0, 1.0)):
         super().__init__()
         self.geometry = Part.Circle(center, normal, radius)
+        # Constraints.radius(self, radius)  # Doubt
 
     def add_to_sketch(self, sketch):
         sketch.addGeometry(self.geometry)
@@ -135,12 +136,22 @@ class Constraints:
         cls.global_id_counter += 1
 
     @classmethod
-    def horizontal(cls, line):
+    def line_horizontal(cls, line):
         cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Horizontal', line.id)
         cls.global_id_counter += 1
 
     @classmethod
-    def vertical(cls, line):
+    def points_horizontal(cls, first: Tuple, second: Tuple):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Horizontal', first[0].id, first[1].value, second[0].id, second[1].value)
+        cls.global_id_counter += 1
+
+    @classmethod
+    def points_vertical(cls, first: Tuple, second: Tuple):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Vertical', first[0].id, first[1].value, second[0].id, second[1].value)
+        cls.global_id_counter += 1
+
+    @classmethod
+    def line_vertical(cls, line):
         cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Vertical', line.id)
         cls.global_id_counter += 1
 
@@ -157,6 +168,11 @@ class Constraints:
     @classmethod
     def distance_horizontal(cls, first, second, distance):
         cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('DistanceX', first[0].id, first[1].value, second[0].id, second[1].value, distance)
+        cls.global_id_counter += 1
+
+    @classmethod
+    def distance_point_to_line(cls, point, line, distance):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Distance', point[0].id, point[1].value, line.id, distance)
         cls.global_id_counter += 1
 
     @classmethod
@@ -178,3 +194,18 @@ class Constraints:
     def angle(cls, arc, angle):
         cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Angle', arc.id, angle)
         cls.global_id_counter += 1             
+
+    @classmethod
+    def points_symmetric(cls, point1, point2, center):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Symmetric', point1[0].id, point1[1].value, point2[0].id, point2[1].value, center[0].id, center[1].value)
+        cls.global_id_counter += 1             
+
+    @classmethod
+    def on_object(cls, point, obj):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('PointOnObject', point[0].id, point[1].value, obj.id)
+        cls.global_id_counter += 1    
+
+    @classmethod
+    def parallel(cls, first, second):
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Parallel', first.id, second.id)
+        cls.global_id_counter += 1    
