@@ -20,24 +20,34 @@ Pieces can be exported to STL format for 3D printing or further processing in CA
 ## Installation
 
 1. Ensure you have Python 3.11+ installed.
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. FreeCAD must be installed and accessible in your Python environment.
+2. FreeCAD must be installed and accessible in your Python environment.
+3. Insall the library using uv:
+
+```bash
+uv pip install .
+```
 
 ## Usage
 
 Import and use the library in your Python scripts:
 
 ```python
-from meccano.pieces import FlatStrip, Plate, Hinge, TriangleHinge, Spring
-from meccano.sketch_geometry import Geometry, Measurements
+import FreeCAD as App
 
-# Example: create a FlatStrip and extrude it
-strip = FlatStrip()
-# ... add geometry and extrude using FreeCAD ...
+from meccano.pieces.l_shaped import Hinge
+
+# create a new FreeCAD document
+app = App.newDocument()
+
+# Define a meccano part
+hinge= Hinge(n_rows_x=2, n_columns=2, n_rows_z=2).build(app)
+
+doc.saveAs('hinge')
 ```
+
+## Preparing the part for 3d printing
+Parts or assemblies can be exported from FreeCAD in STL format using the mesh workbench, and further processed for 3d-printing. Here you see a screenshot from the CURA software:
+![Cura Screenshot](media/cura.png)
 
 ## Project Structure
 
