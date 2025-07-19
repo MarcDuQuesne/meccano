@@ -1,13 +1,21 @@
 # Meccano
 
-Meccano is a Python library for modeling and programmatically generate mechanical pieces inspired by the Meccano system, such as strips, plates, hinges, and springs, using FreeCAD. The project provides classes and utilities to create, extrude, and manage geometric and mechanical components programmatically.
+Meccano is a Python library for modeling and programmatically generate mechanical pieces inspired by the Meccano system, such as strips, plates, hinges, and springs. The project provides classes and utilities to create, extrude, and manage geometric and mechanical components programmatically.
+
+Pieces can be exported to STL format for 3D printing or further processing in CAD software. The library is designed to be used with FreeCAD, a powerful open-source parametric 3D CAD modeler.
 
 ## Features
 
+- Compatible with FreeCAD 1.01
 - Define and extrude custom mechanical pieces
 - Manage geometries and constraints
-- Integrate with FreeCAD for 3D modeling
-- Includes support for strips, plates, hinges, springs, and more
+
+## Supported Pieces
+
+![Hinge 1x1](media/hinge1x1.png)
+![Hinge 2x4x3](media/hinge2x4x3.png)
+![Flat Strip](media/strip5x.png)
+![Triangle Hinge](media/Thinge1x3x3.png)
 
 ## Installation
 
