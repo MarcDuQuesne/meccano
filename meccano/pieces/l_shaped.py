@@ -5,8 +5,14 @@ from BOPTools import BOPFeatures
 from FreeCAD import Vector
 
 from meccano import Piece
-from meccano.sketch_geometry import (Arc, Circle, Constraints, Geometry, Line,
-                                     LineSubParts)
+from meccano.sketch_geometry import (
+    Arc,
+    Circle,
+    Constraints,
+    Geometry,
+    Line,
+    LineSubParts,
+)
 from meccano.sketch_geometry import Measurements as M
 from meccano.sketch_geometry import X, Y
 
