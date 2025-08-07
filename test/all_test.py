@@ -4,6 +4,11 @@ from meccano.pieces import Hinge, FlatStrip, Plate, TriangleHinge
 
 def test_all_pieces(app):
 
+    """Test building all major Meccano pieces in a FreeCAD app.
+
+    Args:
+        app: The FreeCAD application or document object.
+    """
     hinge = Hinge(n_rows_x=1, n_rows_z=1).build(app)
     hinge2 = Hinge(n_rows_x=3, n_rows_z=4, n_columns=2).build(app)
     flat = FlatStrip(n_holes=5, extrude_height=Measurements.thick_extrude_height).build(app)

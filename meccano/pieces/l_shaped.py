@@ -11,9 +11,19 @@ from BOPTools import BOPFeatures
 
 D = 3*M.hole_radius
 
+
 class Hinge(Piece):
+    """A hinge piece with a grid of holes, for Meccano-like construction."""
 
     def __init__(self, n_rows_x, n_rows_z, n_columns=1,extrude_height=M.medium_extrude_height):
+        """Initializes a Hinge object.
+
+        Args:
+            n_rows_x (int): Number of rows in the x direction (>0).
+            n_rows_z (int): Number of rows in the z direction (>0).
+            n_columns (int): Number of columns (>0).
+            extrude_height (float): Height to extrude the hinge.
+        """
         super().__init__()
 
         assert n_columns > 0, "n_columns must be > 0"
@@ -26,6 +36,16 @@ class Hinge(Piece):
         self.extrude_height = extrude_height
 
     def draw_hinge(self, sketch, columns, rows):
+        """Draws the hinge sketch with holes and boundary geometry.
+
+        Args:
+            sketch: The FreeCAD sketch object to draw on.
+            columns (int): Number of columns.
+            rows (int): Number of rows.
+
+        Returns:
+            The modified sketch object.
+        """
 
         holes = []
 
@@ -87,13 +107,37 @@ class Hinge(Piece):
         Constraints.add_all_constraints(sketch)
 
     def draw_xy_sketch(self, sketch):
+        """Draws the hinge in the XY plane.
+
+        Args:
+            sketch: The FreeCAD sketch object to draw on.
+
+        Returns:
+            The modified sketch object.
+        """
         return self.draw_hinge(sketch, self.n_columns, self.n_rows_x)
         return 
     
     def draw_xz_sketch(self, sketch):
+        """Draws the hinge in the XZ plane.
+
+        Args:
+            sketch: The FreeCAD sketch object to draw on.
+
+        Returns:
+            The modified sketch object.
+        """
         return self.draw_hinge(sketch, self.n_columns, self.n_rows_z)
     
     def build(self, app):
+        """Builds the 3D extruded hinge in the given FreeCAD document.
+
+        Args:
+            app: The FreeCAD document or application object.
+
+        Returns:
+            The fused 3D object.
+        """
 
         self.xy_sketch = app.addObject("Sketcher::SketchObject", "HingeXYSketch")
         self.xz_sketch = app.addObject("Sketcher::SketchObject", "HingeXZSketch")
@@ -114,9 +158,20 @@ class Hinge(Piece):
 
         return fused
     
+
 class TriangleHinge(Hinge):
+    """A triangular hinge piece for Meccano-like construction."""
 
     def __init__(self, n_rows_x, n_rows_z, n_columns=3,extrude_height=M.medium_extrude_height, edge_size=3*M.hole_radius):
+        """Initializes a TriangleHinge object.
+
+        Args:
+            n_rows_x (int): Number of rows in the x direction (>0).
+            n_rows_z (int): Number of rows in the z direction (>0).
+            n_columns (int): Number of columns (>0).
+            extrude_height (float): Height to extrude the hinge.
+            edge_size (float): Size of the triangle edge.
+        """
         super().__init__(n_rows_x, n_rows_z, n_columns, extrude_height=extrude_height)
 
         assert n_columns > 0, "n_columns must be > 0"
@@ -131,6 +186,14 @@ class TriangleHinge(Hinge):
 
 
     def draw_xz_sketch(self, sketch):
+        """Draws the triangular hinge in the XZ plane.
+
+        Args:
+            sketch: The FreeCAD sketch object to draw on.
+
+        Returns:
+            The modified sketch object.
+        """
 
         #          4
         #     e___________d
@@ -271,6 +334,14 @@ class TriangleHinge(Hinge):
 
     
     def build(self, app):
+        """Builds the 3D extruded triangular hinge in the given FreeCAD document.
+
+        Args:
+            app: The FreeCAD document or application object.
+
+        Returns:
+            The fused 3D object.
+        """
 
         self.xy_sketch = app.addObject("Sketcher::SketchObject", "HingeXYSketch")
         self.xz_sketch = app.addObject("Sketcher::SketchObject", "HingeXZSketch")
