@@ -1,10 +1,11 @@
+from abc import ABC, abstractmethod
 from enum import Enum
+from typing import Tuple
 
 import Part
-from abc import ABC, abstractmethod
 import Sketcher
-from typing import Tuple 
-from FreeCAD import Vector 
+from FreeCAD import Vector
+
 
 
 class Measurements:
@@ -12,12 +13,13 @@ class Measurements:
 
     tolerance = 0.1
     hole_radius = 2
-    medium_extrude_height = 0.75 
+    medium_extrude_height = 0.75
     thick_extrude_height = 1.5
     thin_extrude_height = 0.5
 
     nut_side = 3.5
-    nut_radius=1.5
+    nut_radius = 1.5
+
 
 
 class Geometry(ABC):
@@ -53,14 +55,17 @@ class Geometry(ABC):
         """
         pass
 
+
 class LineSubParts(Enum):
     WHOLE_OBJECT = 0
-    START_POINT = 1 
+    START_POINT = 1
     END_POINT = 2
     CENTER_POINT = 3
 
+
 class X:
     id = -1
+
 
 class Y:
     id = -2
@@ -69,6 +74,7 @@ class Y:
 class Line(Geometry):
     """A line segment geometry object."""
 
+class Line(Geometry):
     def __init__(self, PointA, PointB):
         """Initializes a Line object.
 
@@ -89,10 +95,14 @@ class Line(Geometry):
         """
         sketch.addGeometry(self.geometry)
 
+<<<<<<< HEAD
 
 class Circle(Geometry):
     """A circle geometry object."""
+=======
+>>>>>>> master
 
+class Circle(Geometry):
     def __init__(self, center, radius, normal=Vector(0.0, 0.0, 1.0)):
         """Initializes a Circle object.
 
@@ -113,10 +123,14 @@ class Circle(Geometry):
         """
         sketch.addGeometry(self.geometry)
 
+<<<<<<< HEAD
 
 class Square(Geometry):
     """A square geometry object, composed of four lines."""
+=======
+>>>>>>> master
 
+class Square(Geometry):
     def __init__(self, topright_vertix, side):
         """Initializes a Square object.
 
@@ -125,11 +139,16 @@ class Square(Geometry):
             side (float): The length of the square's side.
         """
         super().__init__()
-        self.line1 = Line(topright_vertix, topright_vertix + Vector(0,side,0))
-        self.line2 = Line(topright_vertix, topright_vertix + Vector(side,0,0))
-        self.line3 = Line(topright_vertix + Vector(side,side,0), topright_vertix + Vector(0,side,0))
-        self.line4 = Line(topright_vertix + Vector(side,side,0), topright_vertix + Vector(side,0,0))
-
+        self.line1 = Line(topright_vertix, topright_vertix + Vector(0, side, 0))
+        self.line2 = Line(topright_vertix, topright_vertix + Vector(side, 0, 0))
+        self.line3 = Line(
+            topright_vertix + Vector(side, side, 0),
+            topright_vertix + Vector(0, side, 0),
+        )
+        self.line4 = Line(
+            topright_vertix + Vector(side, side, 0),
+            topright_vertix + Vector(side, 0, 0),
+        )
 
     def constraints(self):
         """(Stub) Add constraints for the square geometry."""
@@ -148,7 +167,7 @@ class Square(Geometry):
         # Constraints.equals(self.line1, self.line2)
         # Constraints.equals(self.line1, self.line3)
         # Constraints.equals(self.line1, self.line4)
-        
+
     def add_to_sketch(self, sketch):
         """(Stub) Add the square to the given sketch."""
         pass
@@ -169,7 +188,9 @@ class Arc(Geometry):
             normal: The normal vector (FreeCAD.Vector), default (0,0,1).
         """
         super().__init__()
-        self.geometry = Part.ArcOfCircle(Part.Circle(center, normal, radius), angle1, angle2)
+        self.geometry = Part.ArcOfCircle(
+            Part.Circle(center, normal, radius), angle1, angle2
+        )
 
     def add_to_sketch(self, sketch):
         """Adds the arc to the given sketch.
@@ -182,8 +203,11 @@ class Arc(Geometry):
 
 
 class Constraints:
+<<<<<<< HEAD
     """Utility class for managing and adding constraints to FreeCAD sketches."""
 
+=======
+>>>>>>> master
     global_registry = {}
     global_id_counter = 0
 
@@ -210,7 +234,7 @@ class Constraints:
         """
         cls.global_registry[cls.global_id_counter] = Sketcher.Constraint("Coincident", first[0].id, first[1].value, second[0].id, second[1].value)        
         cls.global_id_counter += 1
-    
+
     @classmethod
     def tangent(cls, first: Tuple, second: Tuple):
         """Adds a tangent constraint between two objects.

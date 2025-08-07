@@ -1,7 +1,5 @@
 from meccano.pieces.l_shaped import Hinge, TriangleHinge
-import FreeCAD as App 
 
-from meccano.sketch_geometry import Measurements as M
 
 def test_hinge(app):
     """Test building a Hinge in a FreeCAD app.

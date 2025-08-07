@@ -1,6 +1,5 @@
 from meccano.pieces.fasteners import Nut, Washer
 
-from meccano.sketch_geometry import Measurements as M
 
 def test_nut(app):
     """Test building a Nut in a FreeCAD app.

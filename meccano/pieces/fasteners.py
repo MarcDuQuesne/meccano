@@ -1,8 +1,10 @@
-
-from meccano.sketch_geometry import Measurements as M, Square, Geometry, Constraints, Circle
 from FreeCAD import Vector
 
 from meccano import Piece
+from meccano.sketch_geometry import Circle, Constraints, Geometry
+from meccano.sketch_geometry import Measurements as M
+from meccano.sketch_geometry import Square
+
 
 
 class Nut(Piece):
@@ -24,7 +26,6 @@ class Nut(Piece):
         square.constraints()
         Constraints.add_all_constraints(sketch)
 
-
     def build(self, app):
         """Builds the 3D extruded nut in the given FreeCAD document.
 
@@ -36,7 +37,9 @@ class Nut(Piece):
         """
         self.xy_sketch = app.addObject("Sketcher::SketchObject", "NutXYSketch")
         self.draw_xy_sketch(self.xy_sketch)
-        self.xy_extruded = self.extrude(app, self.xy_sketch, length_forward=M.thick_extrude_height)
+        self.xy_extruded = self.extrude(
+            app, self.xy_sketch, length_forward=M.thick_extrude_height
+        )
 
         return self.xy_extruded
 
@@ -44,6 +47,7 @@ class Nut(Piece):
 class Washer(Piece):
     """A washer fastener piece for Meccano-like construction."""
 
+class Washer(Piece):
     def __init__(self, thichness=M.thick_extrude_height):
         """Initializes a Washer object.
 
@@ -65,7 +69,6 @@ class Washer(Piece):
         Geometry.add_all_to_sketch(sketch)
         Constraints.add_all_constraints(sketch)
 
-
     def build(self, app):
         """Builds the 3D extruded washer in the given FreeCAD document.
 
@@ -77,6 +80,8 @@ class Washer(Piece):
         """
         self.xy_sketch = app.addObject("Sketcher::SketchObject", "NutXYSketch")
         self.draw_xy_sketch(self.xy_sketch)
-        self.xy_extruded = self.extrude(app, self.xy_sketch, length_forward=self.thickness)
+        self.xy_extruded = self.extrude(
+            app, self.xy_sketch, length_forward=self.thickness
+        )
 
         return self.xy_extruded
