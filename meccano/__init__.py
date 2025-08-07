@@ -1,4 +1,5 @@
 from enum import Enum
+
 import FreeCAD as App
 
 
@@ -6,16 +7,14 @@ class ObjectType(Enum):
     GEOMETRY = "Geometry"
     CONSTRAINT = "Constraint"
 
+
 class Piece:
-    
     def __init__(self):
         self.geometries = {}
         self.constraints = {}
 
-
     def extrude(self, app, sketch, length_forward, length_reversed=0):
-
-        extruder = app.addObject('Part::Extrusion',f'Extrude_{sketch.Name}')
+        extruder = app.addObject("Part::Extrusion", f"Extrude_{sketch.Name}")
         extruder.Base = sketch
         extruder.DirMode = "Normal"
         extruder.DirLink = None
