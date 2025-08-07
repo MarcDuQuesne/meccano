@@ -6,7 +6,6 @@ from meccano.sketch_geometry import Measurements as M
 from meccano.sketch_geometry import Square
 
 
-
 class Nut(Piece):
     """A nut fastener piece for Meccano-like construction."""
 
@@ -20,8 +19,10 @@ class Nut(Piece):
         Args:
             sketch: The FreeCAD sketch object to draw on.
         """
-        square = Square(topright_vertix=Vector(0,0,0), side=M.nut_side)
-        circle = Circle(radius=M.nut_radius, center=Vector(M.nut_side/2, M.nut_side/2, 0))
+        square = Square(topright_vertix=Vector(0, 0, 0), side=M.nut_side)
+        _circle = Circle(
+            radius=M.nut_radius, center=Vector(M.nut_side / 2, M.nut_side / 2, 0)
+        )
         Geometry.add_all_to_sketch(sketch)
         square.constraints()
         Constraints.add_all_constraints(sketch)
@@ -45,9 +46,6 @@ class Nut(Piece):
 
 
 class Washer(Piece):
-    """A washer fastener piece for Meccano-like construction."""
-
-class Washer(Piece):
     def __init__(self, thichness=M.thick_extrude_height):
         """Initializes a Washer object.
 
@@ -64,8 +62,8 @@ class Washer(Piece):
         Args:
             sketch: The FreeCAD sketch object to draw on.
         """
-        Circle(radius=M.nut_radius, center=Vector(0,0,0))
-        Circle(radius=3*M.nut_radius, center=Vector(0,0,0))
+        Circle(radius=M.nut_radius, center=Vector(0, 0, 0))
+        Circle(radius=3 * M.nut_radius, center=Vector(0, 0, 0))
         Geometry.add_all_to_sketch(sketch)
         Constraints.add_all_constraints(sketch)
 

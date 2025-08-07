@@ -13,11 +13,12 @@ from meccano.sketch_geometry import X, Y
 D = 3 * M.hole_radius
 
 
-
 class Hinge(Piece):
     """A hinge piece with a grid of holes, for Meccano-like construction."""
 
-    def __init__(self, n_rows_x, n_rows_z, n_columns=1,extrude_height=M.medium_extrude_height):
+    def __init__(
+        self, n_rows_x, n_rows_z, n_columns=1, extrude_height=M.medium_extrude_height
+    ):
         """Initializes a Hinge object.
 
         Args:
@@ -192,7 +193,7 @@ class Hinge(Piece):
             The modified sketch object.
         """
         return self.draw_hinge(sketch, self.n_columns, self.n_rows_z)
-    
+
     def build(self, app):
         """Builds the 3D extruded hinge in the given FreeCAD document.
 
@@ -203,7 +204,6 @@ class Hinge(Piece):
             The fused 3D object.
         """
 
-    def build(self, app):
         self.xy_sketch = app.addObject("Sketcher::SketchObject", "HingeXYSketch")
         self.xz_sketch = app.addObject("Sketcher::SketchObject", "HingeXZSketch")
 
@@ -236,12 +236,19 @@ class Hinge(Piece):
         app.recompute()
 
         return fused
-    
+
 
 class TriangleHinge(Hinge):
     """A triangular hinge piece for Meccano-like construction."""
 
-    def __init__(self, n_rows_x, n_rows_z, n_columns=3,extrude_height=M.medium_extrude_height, edge_size=3*M.hole_radius):
+    def __init__(
+        self,
+        n_rows_x,
+        n_rows_z,
+        n_columns=3,
+        extrude_height=M.medium_extrude_height,
+        edge_size=3 * M.hole_radius,
+    ):
         """Initializes a TriangleHinge object.
 
         Args:

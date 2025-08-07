@@ -37,7 +37,9 @@ class Plate(Piece):
         extrude_height (float): Height to extrude the plate.
     """
 
-    def __init__(self, n_columns:int, n_rows:int, extrude_height=M.medium_extrude_height):
+    def __init__(
+        self, n_columns: int, n_rows: int, extrude_height=M.medium_extrude_height
+    ):
         """Initializes a Plate object.
 
         Args:
@@ -228,16 +230,13 @@ class Plate(Piece):
 
 
 class FlatStrip(Plate):
-    """A flat strip (1-row plate) with a specified number of holes."""
-
-class FlatStrip(Plate):
     def __init__(self, n_holes, extrude_height=M.medium_extrude_height):
-        """Initializes a FlatStrip object.
+        """Initializes a FlatStrip object (1-row plate) with a specified number of holes.
 
         Args:
             n_holes (int): Number of holes (>=2).
             extrude_height (float): Height to extrude the strip.
         """
-        assert n_holes >=2, "n_holes must be >=2"
+        assert n_holes >= 2, "n_holes must be >=2"
         super().__init__(n_rows=1, n_columns=n_holes, extrude_height=extrude_height)
         self.sketch = None

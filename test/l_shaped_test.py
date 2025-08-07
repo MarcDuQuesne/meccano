@@ -9,6 +9,7 @@ def test_hinge(app):
     """
     _hinge = Hinge(n_rows_x=2, n_columns=2, n_rows_z=2).build(app)
 
+
 def test_small_hinge(app):
     """Test building a small Hinge in a FreeCAD app.
 
@@ -17,6 +18,7 @@ def test_small_hinge(app):
     """
     _hinge = Hinge(n_rows_x=1, n_rows_z=1).build(app)
 
+
 def test_small_t_hinge(app):
     """Test building a small TriangleHinge in a FreeCAD app.
 
@@ -24,6 +26,7 @@ def test_small_t_hinge(app):
         app: The FreeCAD application or document object.
     """
     _thinge = TriangleHinge(n_rows_x=1, n_rows_z=2).build(app)
+
 
 def test_large_t_hinge(app):
     """Test building a large TriangleHinge in a FreeCAD app.

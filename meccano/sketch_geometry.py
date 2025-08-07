@@ -7,7 +7,6 @@ import Sketcher
 from FreeCAD import Vector
 
 
-
 class Measurements:
     """Holds common measurement constants for Meccano pieces."""
 
@@ -19,7 +18,6 @@ class Measurements:
 
     nut_side = 3.5
     nut_radius = 1.5
-
 
 
 class Geometry(ABC):
@@ -72,9 +70,6 @@ class Y:
 
 
 class Line(Geometry):
-    """A line segment geometry object."""
-
-class Line(Geometry):
     def __init__(self, PointA, PointB):
         """Initializes a Line object.
 
@@ -95,12 +90,6 @@ class Line(Geometry):
         """
         sketch.addGeometry(self.geometry)
 
-<<<<<<< HEAD
-
-class Circle(Geometry):
-    """A circle geometry object."""
-=======
->>>>>>> master
 
 class Circle(Geometry):
     def __init__(self, center, radius, normal=Vector(0.0, 0.0, 1.0)):
@@ -123,12 +112,6 @@ class Circle(Geometry):
         """
         sketch.addGeometry(self.geometry)
 
-<<<<<<< HEAD
-
-class Square(Geometry):
-    """A square geometry object, composed of four lines."""
-=======
->>>>>>> master
 
 class Square(Geometry):
     def __init__(self, topright_vertix, side):
@@ -173,7 +156,6 @@ class Square(Geometry):
         pass
 
 
-
 class Arc(Geometry):
     """An arc geometry object."""
 
@@ -201,13 +183,9 @@ class Arc(Geometry):
         sketch.addGeometry(self.geometry)
 
 
-
 class Constraints:
-<<<<<<< HEAD
     """Utility class for managing and adding constraints to FreeCAD sketches."""
 
-=======
->>>>>>> master
     global_registry = {}
     global_id_counter = 0
 
@@ -232,7 +210,9 @@ class Constraints:
             first (Tuple): The first object and subpart.
             second (Tuple): The second object and subpart.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint("Coincident", first[0].id, first[1].value, second[0].id, second[1].value)        
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Coincident", first[0].id, first[1].value, second[0].id, second[1].value
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -243,7 +223,9 @@ class Constraints:
             first (Tuple): The first object and subpart.
             second (Tuple): The second object and subpart.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint("Tangent", first[0].id, first[1].value, second[0].id, second[1].value)        
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Tangent", first[0].id, first[1].value, second[0].id, second[1].value
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -253,7 +235,9 @@ class Constraints:
         Args:
             line: The line geometry object.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Horizontal', line.id)
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Horizontal", line.id
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -264,7 +248,9 @@ class Constraints:
             first (Tuple): The first object and subpart.
             second (Tuple): The second object and subpart.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Horizontal', first[0].id, first[1].value, second[0].id, second[1].value)
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Horizontal", first[0].id, first[1].value, second[0].id, second[1].value
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -275,7 +261,9 @@ class Constraints:
             first (Tuple): The first object and subpart.
             second (Tuple): The second object and subpart.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Vertical', first[0].id, first[1].value, second[0].id, second[1].value)
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Vertical", first[0].id, first[1].value, second[0].id, second[1].value
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -285,7 +273,9 @@ class Constraints:
         Args:
             line: The line geometry object.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Vertical', line.id)
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Vertical", line.id
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -296,18 +286,9 @@ class Constraints:
             circle: The circle geometry object.
             radius (float): The radius value.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Radius', circle.id, radius)
-        cls.global_id_counter += 1
-
-    @classmethod
-    def on_object(cls, object, onobject):
-        """Adds a point-on-object constraint.
-
-        Args:
-            object: The object and subpart.
-            onobject: The object to constrain to.
-        """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('PointOnObject', object[0].id, object[1].value, onobject.id)
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Radius", circle.id, radius
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -319,7 +300,14 @@ class Constraints:
             second: The second object and subpart.
             distance (float): The distance value.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('DistanceX', first[0].id, first[1].value, second[0].id, second[1].value, distance)
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "DistanceX",
+            first[0].id,
+            first[1].value,
+            second[0].id,
+            second[1].value,
+            distance,
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -331,7 +319,9 @@ class Constraints:
             line: The line geometry object.
             distance (float): The distance value.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Distance', point[0].id, point[1].value, line.id, distance)
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Distance", point[0].id, point[1].value, line.id, distance
+        )
         cls.global_id_counter += 1
 
     @classmethod
@@ -343,8 +333,15 @@ class Constraints:
             second: The second object and subpart.
             distance (float): The distance value.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('DistanceY', first[0].id, first[1].value, second[0].id, second[1].value, distance)
-        cls.global_id_counter += 1        
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "DistanceY",
+            first[0].id,
+            first[1].value,
+            second[0].id,
+            second[1].value,
+            distance,
+        )
+        cls.global_id_counter += 1
 
     @classmethod
     def distance(cls, first, second, distance):
@@ -355,8 +352,15 @@ class Constraints:
             second: The second object and subpart.
             distance (float): The distance value.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Distance', first[0].id, first[1].value, second[0].id, second[1].value, distance)
-        cls.global_id_counter += 1             
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Distance",
+            first[0].id,
+            first[1].value,
+            second[0].id,
+            second[1].value,
+            distance,
+        )
+        cls.global_id_counter += 1
 
     @classmethod
     def equals(cls, first, second):
@@ -366,8 +370,10 @@ class Constraints:
             first: The first geometry object.
             second: The second geometry object.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Equal', first.id, second.id)
-        cls.global_id_counter += 1             
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Equal", first.id, second.id
+        )
+        cls.global_id_counter += 1
 
     @classmethod
     def angle(cls, arc, angle):
@@ -377,8 +383,10 @@ class Constraints:
             arc: The arc geometry object.
             angle (float): The angle value (radians).
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Angle', arc.id, angle)
-        cls.global_id_counter += 1             
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Angle", arc.id, angle
+        )
+        cls.global_id_counter += 1
 
     @classmethod
     def points_symmetric(cls, point1, point2, center):
@@ -389,8 +397,16 @@ class Constraints:
             point2: The second point and subpart.
             center: The center object and subpart.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Symmetric', point1[0].id, point1[1].value, point2[0].id, point2[1].value, center[0].id, center[1].value)
-        cls.global_id_counter += 1             
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Symmetric",
+            point1[0].id,
+            point1[1].value,
+            point2[0].id,
+            point2[1].value,
+            center[0].id,
+            center[1].value,
+        )
+        cls.global_id_counter += 1
 
     @classmethod
     def on_object(cls, point, obj):
@@ -400,8 +416,10 @@ class Constraints:
             point: The point and subpart.
             obj: The object to constrain to.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('PointOnObject', point[0].id, point[1].value, obj.id)
-        cls.global_id_counter += 1    
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "PointOnObject", point[0].id, point[1].value, obj.id
+        )
+        cls.global_id_counter += 1
 
     @classmethod
     def parallel(cls, first, second):
@@ -411,5 +429,7 @@ class Constraints:
             first: The first line geometry object.
             second: The second line geometry object.
         """
-        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint('Parallel', first.id, second.id)
-        cls.global_id_counter += 1    
+        cls.global_registry[cls.global_id_counter] = Sketcher.Constraint(
+            "Parallel", first.id, second.id
+        )
+        cls.global_id_counter += 1

@@ -9,6 +9,7 @@ def test_nut(app):
     """
     _hinge = Nut().build(app)
 
+
 def test_washer(app):
     """Test building a Washer in a FreeCAD app.
 
