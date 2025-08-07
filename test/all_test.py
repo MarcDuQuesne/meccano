@@ -5,7 +5,12 @@ from meccano.sketch_geometry import Measurements
 
 
 def test_all_pieces(app):
-    hinge = Hinge(n_rows_x=1, n_rows_z=1).build(app)
+    """Test building all major Meccano pieces in a FreeCAD app.
+
+    Args:
+        app: The FreeCAD application or document object.
+    """
+    _hinge = Hinge(n_rows_x=1, n_rows_z=1).build(app)
     hinge2 = Hinge(n_rows_x=3, n_rows_z=4, n_columns=2).build(app)
     flat = FlatStrip(n_holes=5, extrude_height=Measurements.thick_extrude_height).build(
         app
@@ -17,7 +22,7 @@ def test_all_pieces(app):
         app
     )
 
-    hinge = Hinge(n_rows_x=1, n_rows_z=1).build(app)
+    _hinge = Hinge(n_rows_x=1, n_rows_z=1).build(app)
     hinge2.Placement = App.Placement(
         App.Vector(Measurements.hole_radius * 20, 0, 0),
         App.Rotation(App.Vector(0, 0, 1), 0),

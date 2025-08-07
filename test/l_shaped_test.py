@@ -2,16 +2,36 @@ from meccano.pieces.l_shaped import Hinge, TriangleHinge
 
 
 def test_hinge(app):
+    """Test building a Hinge in a FreeCAD app.
+
+    Args:
+        app: The FreeCAD application or document object.
+    """
     _hinge = Hinge(n_rows_x=2, n_columns=2, n_rows_z=2).build(app)
 
 
 def test_small_hinge(app):
+    """Test building a small Hinge in a FreeCAD app.
+
+    Args:
+        app: The FreeCAD application or document object.
+    """
     _hinge = Hinge(n_rows_x=1, n_rows_z=1).build(app)
 
 
 def test_small_t_hinge(app):
+    """Test building a small TriangleHinge in a FreeCAD app.
+
+    Args:
+        app: The FreeCAD application or document object.
+    """
     _thinge = TriangleHinge(n_rows_x=1, n_rows_z=2).build(app)
 
 
 def test_large_t_hinge(app):
+    """Test building a large TriangleHinge in a FreeCAD app.
+
+    Args:
+        app: The FreeCAD application or document object.
+    """
     _thinge = TriangleHinge(n_rows_x=3, n_rows_z=4, edge_size=6, n_columns=5).build(app)

@@ -4,8 +4,14 @@ from itertools import tee
 from FreeCAD import Vector
 
 from meccano import Piece
-from meccano.sketch_geometry import (Arc, Circle, Constraints, Geometry, Line,
-                                     LineSubParts)
+from meccano.sketch_geometry import (
+    Arc,
+    Circle,
+    Constraints,
+    Geometry,
+    Line,
+    LineSubParts,
+)
 from meccano.sketch_geometry import Measurements as M
 from meccano.sketch_geometry import X, Y
 
@@ -15,26 +21,55 @@ linear_height = 0.75
 
 
 def pairwise(iterable):
-    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    """Iterate over pairs of consecutive elements in an iterable.
+
+    Args:
+        iterable (Iterable): The input iterable.
+
+    Returns:
+        Iterator[Tuple[Any, Any]]: An iterator of tuple pairs.
+    """
     a, b = tee(iterable)
     next(b, None)
     return zip(a, b)
 
 
 class Plate(Piece):
+    """A rectangular plate with a grid of holes, for Meccano-like construction.
+
+    Attributes:
+        n_columns (int): Number of columns of holes.
+        n_rows (int): Number of rows of holes.
+        extrude_height (float): Height to extrude the plate.
+    """
+
     def __init__(
         self, n_columns: int, n_rows: int, extrude_height=M.medium_extrude_height
     ):
-        super(Plate).__init__()
+        """Initializes a Plate object.
 
+        Args:
+            n_columns (int): Number of columns of holes (>=0).
+            n_rows (int): Number of rows of holes (>=0).
+            extrude_height (float): Height to extrude the plate.
+        """
+        super(Plate).__init__()
         assert n_columns >= 0, "n_holes must be >=0"
         assert n_rows >= 0, "n_holes must be >=0"
         self.n_columns = n_columns
         self.n_rows = n_rows
-
         self.extrude_height = extrude_height
 
     def draw_sketch(self, sketch):
+        """Draws the plate sketch with holes and boundary geometry.
+
+        Args:
+            sketch: The FreeCAD sketch object to draw on.
+
+        Returns:
+            The modified sketch object.
+        """
+
         holes = []
         sx_upper = Arc(
             Vector(0, 0, 0), radius=hole_radius * 3, angle1=math.pi / 2, angle2=math.pi
@@ -184,6 +219,14 @@ class Plate(Piece):
         return sketch
 
     def build(self, app):
+        """Builds the 3D extruded plate in the given FreeCAD document.
+
+        Args:
+            app: The FreeCAD document or application object.
+
+        Returns:
+            The extruded 3D object.
+        """
         self.sketch = app.addObject("Sketcher::SketchObject", "FlatStrip")
         self.draw_sketch(self.sketch)
         extruded = self.extrude(app, self.sketch, length_forward=self.extrude_height)
@@ -194,6 +237,12 @@ class Plate(Piece):
 
 class FlatStrip(Plate):
     def __init__(self, n_holes, extrude_height=M.medium_extrude_height):
+        """Initializes a FlatStrip object (1-row plate) with a specified number of holes.
+
+        Args:
+            n_holes (int): Number of holes (>=2).
+            extrude_height (float): Height to extrude the strip.
+        """
         assert n_holes >= 2, "n_holes must be >=2"
         super().__init__(n_rows=1, n_columns=n_holes, extrude_height=extrude_height)
         self.sketch = None
