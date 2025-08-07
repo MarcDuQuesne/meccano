@@ -20,8 +20,15 @@ dependencies = [
 # freecad
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 test = ["pytest"]
+dev = [
+    "pre-commit",
+    "ruff",
+    "black",
+    "isort"
+]
+
 
 [tool.setuptools.packages.find]
 where = ["meccano"]
