@@ -29,6 +29,8 @@ dev = [
     "isort"
 ]
 
+[tool.uv]
+package = true
 
 [tool.setuptools.packages.find]
-where = ["meccano"]
+include = ["meccano*"]

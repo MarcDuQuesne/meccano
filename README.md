@@ -6,7 +6,7 @@ Pieces can be exported to STL format for 3D printing or further processing in CA
 
 ## Features
 
-- Compatible with FreeCAD 1.01
+- Compatible with FreeCAD 1.0.2
 - Define and extrude custom mechanical pieces
 - Manage geometries and constraints
 
