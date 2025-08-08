@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: lscr.io/linuxserver/freecad:latest
+      image: lscr.io/linuxserver/freecad:1.02
       options: --user root  # needed to install packages
 
     env:
