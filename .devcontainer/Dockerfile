@@ -1,7 +1,7 @@
 # This Dockerfile sets up a development environment for my meccano project
 # containing FreeCAD and additional tools.
-
-FROM lscr.io/linuxserver/freecad:1.0.2
+ARG FreeCAD_VERSION
+FROM lscr.io/linuxserver/freecad:${FreeCAD_VERSION}
 
 RUN apt-get update && \
     apt-get install -y \
@@ -14,4 +14,4 @@ RUN apt-get update && \
 RUN pip3 install uv
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN chsh -s $(which zsh)
+# RUN chsh -s $(which zsh)

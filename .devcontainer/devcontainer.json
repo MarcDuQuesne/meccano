@@ -1,12 +1,23 @@
 {
-  "build": { "dockerfile": "Dockerfile" },
+  "name": "FreeCAD Development Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "FreeCAD_VERSION": "1.0.2"
+    }
+  },
   // "image": "lscr.io/linuxserver/freecad:1.0.2",
   "remoteEnv": {
     "PYTHONPATH": "/opt/freecad/usr/lib"
   },
   "customizations": {
     "vscode": {
-      "extensions": ["ms-python.python"]
+      "extensions": [
+        "ms-python.python"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
     }
   }
 }
