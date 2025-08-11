@@ -17,7 +17,7 @@ classifiers = [
 keywords = ["meccano", "mechanical", "3d-modeling", "freecad", "python"]
 requires-python = ">=3.11"
 dependencies = [
-# freecad
+    # freecad
 ]
 
 [dependency-groups]
@@ -26,7 +26,8 @@ dev = [
     "pre-commit",
     "ruff",
     "black",
-    "isort"
+    "isort",
+    "freecad-stubs>=1.0.21",
 ]
 
 [tool.uv]
