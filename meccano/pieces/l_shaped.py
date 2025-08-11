@@ -16,14 +16,18 @@ from meccano.sketch_geometry import (
 from meccano.sketch_geometry import Measurements as M
 from meccano.sketch_geometry import X, Y
 
-D = 3 * M.hole_radius
+D = 3 * M.get("hole_radius")
 
 
 class Hinge(Piece):
     """A hinge piece with a grid of holes, for Meccano-like construction."""
 
     def __init__(
-        self, n_rows_x, n_rows_z, n_columns=1, extrude_height=M.medium_extrude_height
+        self,
+        n_rows_x,
+        n_rows_z,
+        n_columns=1,
+        extrude_height=M.get("medium_extrude_height"),
     ):
         """Initializes a Hinge object.
 
@@ -65,13 +69,13 @@ class Hinge(Piece):
 
         sx_lower = Arc(
             Vector(0, -2 * D * (rows - 1), 0),
-            radius=M.hole_radius * 3,
+            radius=M.get("hole_radius") * 3,
             angle1=math.pi,
             angle2=math.pi * 3 / 2,
         )
         dx_lower = Arc(
             Vector(2 * D * (columns - 1), -2 * D * (rows - 1), 0),
-            radius=M.hole_radius * 3,
+            radius=M.get("hole_radius") * 3,
             angle1=math.pi / 2 * 3,
             angle2=0,
         )
@@ -81,7 +85,7 @@ class Hinge(Piece):
                 holes.append(
                     Circle(
                         Vector(2 * D * i, -2 * D * j, 0),
-                        radius=M.hole_radius + 2 * M.tolerance,
+                        radius=M.get("hole_radius") + 2 * M.get("tolerance"),
                     )
                 )
 
@@ -153,13 +157,13 @@ class Hinge(Piece):
         Constraints.distance(
             (line4, LineSubParts.START_POINT),
             (line4, LineSubParts.END_POINT),
-            2 * D * (rows - 0.5) + M.medium_extrude_height,
+            2 * D * (rows - 0.5) + M.get("medium_extrude_height"),
         )
         Constraints.line_vertical(line4)
         Constraints.line_vertical(line3)
 
         for hole in holes:
-            Constraints.radius(hole, M.hole_radius + M.tolerance * 2)
+            Constraints.radius(hole, M.get("hole_radius") + M.get("tolerance") * 2)
 
         for i in range(rows):
             for j in range(columns):
@@ -226,7 +230,9 @@ class Hinge(Piece):
         self.xz_sketch.AttachmentSupport = [(self.xy_extruded, "Face1")]
         self.xz_extruded.Placement = App.Placement(
             App.Vector(
-                0, M.hole_radius * 6 + 2 * self.extrude_height, -M.hole_radius * 3
+                0,
+                M.get("hole_radius") * 6 + 2 * self.extrude_height,
+                -M.get("hole_radius") * 3,
             ),
             App.Rotation(App.Vector(0, 0, 1), 180),
         )
@@ -252,8 +258,8 @@ class TriangleHinge(Hinge):
         n_rows_x,
         n_rows_z,
         n_columns=3,
-        extrude_height=M.medium_extrude_height,
-        edge_size=3 * M.hole_radius,
+        extrude_height=M.get("medium_extrude_height"),
+        edge_size=3 * M.get("hole_radius"),
     ):
         """Initializes a TriangleHinge object.
 
@@ -299,14 +305,14 @@ class TriangleHinge(Hinge):
         b = a + Vector(2 * D * (self.columns), 0, 0)
         c = b + Vector(0, D, 0)
         f = a + Vector(0, D, 0)
-        e = f + Vector(8 * M.hole_radius, 0, 0)
+        e = f + Vector(8 * M.get("hole_radius"), 0, 0)
         d = e + Vector(
             2 * D * (self.columns - 0.5) / 2 - 2 * D, 2 * D * (self.n_rows_z - 0.5)
         )
 
         f1 = a + Vector(D, 0, 0)
         f2 = f1 + Vector(D, 0, 0)
-        f3 = f2 + Vector(0, 2 * D * (self.n_columns - 1) + M.hole_radius, 0)
+        f3 = f2 + Vector(0, 2 * D * (self.n_columns - 1) + M.get("hole_radius"), 0)
         f4 = f3 - Vector(D, D, 0)
 
         fline1 = Line(f1, f2)
@@ -316,7 +322,7 @@ class TriangleHinge(Hinge):
 
         g1 = b - Vector(D, 0, 0)
         g2 = g1 - Vector(D, 0, 0)
-        g3 = g2 + Vector(0, 2 * D * (self.n_columns - 1) + M.hole_radius, 0)
+        g3 = g2 + Vector(0, 2 * D * (self.n_columns - 1) + M.get("hole_radius"), 0)
         g4 = g3 + Vector(D, -D, 0)
 
         gline1 = Line(g1, g2)
@@ -329,7 +335,8 @@ class TriangleHinge(Hinge):
         for j in range(self.n_rows_z):
             holes.append(
                 Circle(
-                    center + j * Vector(0, D, 0), radius=M.hole_radius + 2 * M.tolerance
+                    center + j * Vector(0, D, 0),
+                    radius=M.get("hole_radius") + 2 * M.get("tolerance"),
                 )
             )
 
@@ -443,7 +450,7 @@ class TriangleHinge(Hinge):
 
         for i, hole in enumerate(holes):
             # Constraints.points_vertical((hole, LineSubParts.CENTER_POINT), (line4, LineSubParts.CENTER_POINT))
-            Constraints.radius(hole, M.hole_radius + M.tolerance)
+            Constraints.radius(hole, M.get("hole_radius") + M.get("tolerance"))
             Constraints.distance_point_to_line(
                 (hole, LineSubParts.CENTER_POINT),
                 X,
@@ -486,7 +493,7 @@ class TriangleHinge(Hinge):
         #     Constraints.points_vertical((holes[0], LineSubParts.CENTER_POINT), (hole, LineSubParts.CENTER_POINT))
 
         # for i, hole in enumerate(holes):
-        # Constraints.radius(hole, M.hole_radius+M.tolerance*2)
+        # Constraints.radius(hole, M.get("hole_radius") +M.get("tolerance")*2)
         # Constraints.points_symmetric((line1, LineSubParts.START_POINT), (line1, LineSubParts.END_POINT), (hole, LineSubParts.CENTER_POINT))
         # Constraints.coincident((hole, LineSubParts.CENTER_POINT), center + j*Vector(0, D, 0))
 
@@ -519,7 +526,7 @@ class TriangleHinge(Hinge):
         self.xz_sketch.MapMode = "FlatFace"
         self.xz_sketch.AttachmentSupport = [(self.xy_extruded, "Face1")]
         self.xz_extruded.Placement = App.Placement(
-            App.Vector(-D, M.hole_radius * 6 + 2 * self.extrude_height),
+            App.Vector(-D, M.get("hole_radius") * 6 + 2 * self.extrude_height),
             App.Rotation(App.Vector(0, 0, 1), 180),
         )
 
