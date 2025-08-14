@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  freecad:
+    image: lscr.io/linuxserver/freecad:1.0.2
+    container_name: freecad
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./meccanoWB:/opt/meccano/Mod
+    restart: unless-stopped
