@@ -3,7 +3,7 @@ class My_Command_Class:
 
     def GetResources(self):
         return {
-            "Pixmap": "My_Command_Icon",  # the name of a svg file available in the resources
+            "Pixmap": "actions/TechDraw_AxoLengthDimension.svg",
             "Accel": "Shift+S",  # a default shortcut (optional)
             "MenuText": "My New Command",
             "ToolTip": "What my new command does",
