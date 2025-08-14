@@ -8,12 +8,15 @@
   },
   // "image": "lscr.io/linuxserver/freecad:1.0.2",
   "remoteEnv": {
-    "PYTHONPATH": "/opt/freecad/usr/lib"
+    "PYTHONPATH": "/opt/freecad/usr/lib",
+    "UV_LINK_MODE": "copy",
+    "LD_LIBRARY_PATH": "/opt/freecad/usr/lib/"
   },
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-python.python"
+        "ms-python.python",
+        "github.vscode-github-actions"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "zsh"
