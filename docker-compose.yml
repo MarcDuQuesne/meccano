@@ -2,10 +2,15 @@ version: "3.8"
 
 services:
   freecad:
-    image: lscr.io/linuxserver/freecad:1.0.2
+    #image: lscr.io/linuxserver/freecad:1.0.2
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        - FreeCAD_VERSION=1.0.2
     container_name: freecad
     ports:
       - "3001:3000"
     volumes:
-      - ./meccanoWB:/opt/meccano/Mod
+      - ./MeccanoWB:/opt/freecad/usr/share/Mod/MeccanoWB
     restart: unless-stopped
