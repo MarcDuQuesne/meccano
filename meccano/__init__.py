@@ -2,7 +2,6 @@ from enum import Enum
 
 import FreeCAD as App
 
-
 class ObjectType(Enum):
     GEOMETRY = "Geometry"
     CONSTRAINT = "Constraint"

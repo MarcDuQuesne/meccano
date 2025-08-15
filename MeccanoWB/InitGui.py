@@ -14,7 +14,7 @@ class MeccanoWorkbench(Gui.Workbench):
         It is executed once in a FreeCAD session followed by the Activated function.
         """
         import MeccanoTools
-        self.list = ["My_Command"] # a list of command names created in the line above
+        self.list = ["Plate"] # a list of command names created in the line above
         self.appendToolbar("My Commands", self.list) # creates a new toolbar with your commands
         self.appendMenu("Meccano", self.list) # creates a new menu
         self.appendMenu(["Menu", "My submenu"], self.list) # appends a submenu to an existing menu
