@@ -12,5 +12,5 @@ services:
     ports:
       - "3001:3000"
     volumes:
-      - ./MeccanoWB:/opt/freecad/usr/share/Mod/MeccanoWB
+      - ./MeccanoWB:/opt/freecad/usr/Mod/MeccanoWB
     restart: unless-stopped
