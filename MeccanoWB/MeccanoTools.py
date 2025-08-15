@@ -1,3 +1,6 @@
+import FreeCAD as App
+import FreeCADGui as Gui
+
 class My_Command_Class:
     """My new command"""
 
@@ -17,3 +20,5 @@ class My_Command_Class:
         """Here you can define if the command must be active or not (greyed) if certain conditions
         are met or not. This function is optional."""
         return True
+
+Gui.addCommand("My_Command", My_Command_Class())
