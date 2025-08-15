@@ -13,3 +13,8 @@ RUN apt-get update && \
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 RUN pip3 install uv
+
+COPY ./meccano /package/meccano
+COPY ./pyproject.toml /package/
+
+RUN /opt/freecad/usr/bin/python -m pip install /package
