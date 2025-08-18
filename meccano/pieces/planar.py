@@ -229,10 +229,12 @@ class Plate(Piece):
         """
         self.sketch = app.addObject("Sketcher::SketchObject", "FlatStrip")
         self.draw_sketch(self.sketch)
-        extruded = self.extrude(app, self.sketch, length_forward=self.extrude_height)
+        self.extruded = self.extrude(
+            app, self.sketch, length_forward=self.extrude_height
+        )
         app.recompute()
 
-        return extruded
+        return self.extruded
 
 
 class FlatStrip(Plate):

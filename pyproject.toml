@@ -34,3 +34,4 @@ package = true
 
 [tool.setuptools.packages.find]
 include = ["meccano*"]
+exclude = ["MeccanoWB"]
