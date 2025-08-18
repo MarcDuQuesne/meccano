@@ -10,8 +10,11 @@ RUN apt-get update && \
     build-essential \
     zsh \ 
     vim 
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 RUN pip3 install uv
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# RUN chsh -s $(which zsh)
+COPY ./meccano /package/meccano
+COPY ./pyproject.toml /package/
+
+RUN /opt/freecad/usr/bin/python -m pip install /package
