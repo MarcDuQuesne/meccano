@@ -17,15 +17,16 @@ Pieces can be exported to STL format for 3D printing or further processing in CA
 ![Flat Strip](media/strip5x.png)
 ![Triangle Hinge](media/Thinge1x3x3.png)
 
-## Installation
+## Development in VS Code with Dev Containers
 
-1. Ensure you have Python 3.11+ installed.
-2. FreeCAD must be installed and accessible in your Python environment.
-3. Insall the library using uv:
+This project includes a pre-configured [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) for a seamless development experience. To use it:
 
-```bash
-uv pip install .
-```
+1. Install [Visual Studio Code](https://code.visualstudio.com/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+2. Open this project folder in VS Code.
+3. When prompted, or via the Command Palette (`F1`), select **"Dev Containers: Reopen in Container"**.
+4. VS Code will build and open the workspace inside the container, with all dependencies pre-installed.
+
+You can now run, test, and develop Meccano in a reproducible environment.
 
 ## Usage
 
@@ -54,7 +55,7 @@ Parts or assemblies can be exported from FreeCAD in STL format using the mesh wo
 - `meccano/`: Core library
   - `sketch_geometry.py`: Geometry and measurements utilities
   - `pieces/`: Mechanical piece classes (e.g., FlatStrip, Plate, Hinge, Spring)
-- `test/`: Unit tests for the library
+- `tests/`: Unit tests for the library
 - `requirements.txt`: Python dependencies
 - `pyproject.toml`: Project metadata
 
@@ -64,6 +65,8 @@ Run tests using pytest:
 ```bash
 pytest
 ```
+
+
 
 ## License
 All code is licensed under the Apache License 2.0. See the LICENSE file for details.

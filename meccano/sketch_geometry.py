@@ -5,10 +5,15 @@ from typing import Tuple
 import Part
 import Sketcher
 from FreeCAD import Vector
+import FreeCAD as App
+
+import Spreadsheet
 
 
 class Measurements:
-    """Holds common measurement constants for Meccano pieces."""
+    """
+    Holds common measurement constants for Meccano pieces.
+    """
 
     tolerance = 0.1
     hole_radius = 2
@@ -18,6 +23,52 @@ class Measurements:
 
     nut_side = 3.5
     nut_radius = 1.5
+
+    sheet: "Spreadsheet"
+
+    def __init__(self):
+        """
+        Create a new spreadsheet in the active FreeCAD document.
+        """
+        if not App.ActiveDocument:
+            raise Exception(
+                "No active document found. Please open or create a document first."
+            )
+
+        # Create a new spreadsheet object
+
+        self.sheet = App.ActiveDocument.addObject("Spreadsheet::Sheet", "Measurements")
+        self.sheet.Label = "Dimensions"
+
+        self.entry("B1", "0.1mm", "tolerance")
+        self.entry("D1", "2mm", "hole_radius")
+
+    def entry(self, base_cell: str, value: str, alias: str):
+        def next_cell_right(base_cell: str) -> str:
+            """
+            Returns the cell to the right of base_cell (e.g., 'B2' -> 'C2').
+            """
+            col = base_cell[0]
+            row = base_cell[1:]
+            next_col = chr(ord(col) + 1)
+            return f"{next_col}{row}"
+
+        self.sheet.set(base_cell, alias)
+        self.sheet.set(next_cell_right(base_cell), value)
+        self.sheet.setAlias(next_cell_right(base_cell), alias)
+
+    def get(self, alias: str) -> str:
+        """
+        Returns the value of the measurement by its alias.
+        """
+        if not self.sheet:
+            raise Exception("Measurements spreadsheet not initialized.")
+
+        cell = self.sheet.getAlias(alias)
+        if not cell:
+            raise KeyError(f"Measurement '{alias}' not found in the spreadsheet.")
+
+        return self.sheet.get(cell)
 
 
 class Geometry(ABC):

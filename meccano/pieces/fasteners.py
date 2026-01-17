@@ -19,9 +19,10 @@ class Nut(Piece):
         Args:
             sketch: The FreeCAD sketch object to draw on.
         """
-        square = Square(topright_vertix=Vector(0, 0, 0), side=M.nut_side)
+        square = Square(topright_vertix=Vector(0, 0, 0), side=M.get("nut_side"))
         _circle = Circle(
-            radius=M.nut_radius, center=Vector(M.nut_side / 2, M.nut_side / 2, 0)
+            radius=M.get("nut_radius"),
+            center=Vector(M.get("nut_side") / 2, M.get("nut_side") / 2, 0),
         )
         Geometry.add_all_to_sketch(sketch)
         square.constraints()
@@ -39,14 +40,14 @@ class Nut(Piece):
         self.xy_sketch = app.addObject("Sketcher::SketchObject", "NutXYSketch")
         self.draw_xy_sketch(self.xy_sketch)
         self.xy_extruded = self.extrude(
-            app, self.xy_sketch, length_forward=M.thick_extrude_height
+            app, self.xy_sketch, length_forward=M.get("thick_extrude_height")
         )
 
         return self.xy_extruded
 
 
 class Washer(Piece):
-    def __init__(self, thichness=M.thick_extrude_height):
+    def __init__(self, thichness=M.get("thick_extrude_height")):
         """Initializes a Washer object.
 
         Args:
@@ -62,8 +63,8 @@ class Washer(Piece):
         Args:
             sketch: The FreeCAD sketch object to draw on.
         """
-        Circle(radius=M.nut_radius, center=Vector(0, 0, 0))
-        Circle(radius=3 * M.nut_radius, center=Vector(0, 0, 0))
+        Circle(radius=M.get("nut_radius"), center=Vector(0, 0, 0))
+        Circle(radius=3 * M.get("nut_radius"), center=Vector(0, 0, 0))
         Geometry.add_all_to_sketch(sketch)
         Constraints.add_all_constraints(sketch)
 

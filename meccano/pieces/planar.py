@@ -44,7 +44,7 @@ class Plate(Piece):
     """
 
     def __init__(
-        self, n_columns: int, n_rows: int, extrude_height=M.medium_extrude_height
+        self, n_columns: int, n_rows: int, extrude_height=M.get("medium_extrude_height")
     ):
         """Initializes a Plate object.
 
@@ -236,7 +236,7 @@ class Plate(Piece):
 
 
 class FlatStrip(Plate):
-    def __init__(self, n_holes, extrude_height=M.medium_extrude_height):
+    def __init__(self, n_holes, extrude_height=M.get("medium_extrude_height")):
         """Initializes a FlatStrip object (1-row plate) with a specified number of holes.
 
         Args:
